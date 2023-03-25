@@ -7,6 +7,7 @@ import "./discussion.css";
 
 const Discussion = () => {
   const [comments, setComments] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     const getComments = async () => {
@@ -23,19 +24,28 @@ const Discussion = () => {
     getComments();
   }, []);
 
+  const handleSelectComment = (id) => {
+    setSelectedId(id);
+  };
+
   return (
     <>
       <section>
         {comments ? (
           comments.map((c) => (
-            <Comment key={c.id} name={c.name} email={c.email} />
+            <Comment
+              key={c.id}
+              name={c.name}
+              email={c.email}
+              onClick={() => handleSelectComment(c.id)}
+            />
           ))
         ) : (
           <p>Loading...</p>
         )}
       </section>
       <section>
-        <FullComment />
+        <FullComment commentId={selectedId} />
       </section>
       <section>
         <NewComment />
