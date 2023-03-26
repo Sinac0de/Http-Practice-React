@@ -5,6 +5,17 @@ import "./fullComment.css";
 const FullComment = ({ commentId }) => {
   const [comment, setComment] = useState(null);
 
+  const deleteHandler = async (commentId) => {
+    try {
+      const res = await axios.delete(
+        `https://jsonplaceholder.typicode.com/comments/${commentId}`
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (commentId) {
       axios
@@ -30,6 +41,9 @@ const FullComment = ({ commentId }) => {
         <p>{comment.name}</p>
         <p>{comment.email}</p>
         <p>{comment.body}</p>
+        <button className="delete" onClick={deleteHandler}>
+          Delete
+        </button>
       </div>
     );
   }
