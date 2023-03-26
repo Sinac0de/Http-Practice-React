@@ -8,6 +8,7 @@ import "./discussion.css";
 const Discussion = () => {
   const [comments, setComments] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getComments = async () => {
@@ -15,7 +16,7 @@ const Discussion = () => {
         const { data } = await axios.get("http://localhost:3001/comments");
         setComments(data);
       } catch (error) {
-        console.log(error);
+        setError(true);
       }
     };
 
@@ -31,25 +32,33 @@ const Discussion = () => {
       .post("http://localhost:3001/comments", comment)
       .then(() => axios.get("http://localhost:3001/comments"))
       .then((res) => setComments(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => setError(true));
+  };
+
+  const renderComments = () => {
+    let renderValue = <p>Loading...</p>;
+
+    if (error) {
+      renderValue = <p>Fetching data failed!</p>;
+    }
+
+    if (comments && !error) {
+      renderValue = comments.map((c) => (
+        <Comment
+          key={c.id}
+          name={c.name}
+          email={c.email}
+          onClick={() => handleSelectComment(c.id)}
+        />
+      ));
+    }
+
+    return renderValue;
   };
 
   return (
     <>
-      <section>
-        {comments ? (
-          comments.map((c) => (
-            <Comment
-              key={c.id}
-              name={c.name}
-              email={c.email}
-              onClick={() => handleSelectComment(c.id)}
-            />
-          ))
-        ) : (
-          <p>Loading...</p>
-        )}
-      </section>
+      <section>{renderComments()}</section>
       <section>
         <FullComment commentId={selectedId} />
       </section>
