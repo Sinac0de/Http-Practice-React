@@ -5,7 +5,34 @@
   flex-direction: column;
   background-color: #e0e7ff;
   width: 600px;
-  height: 200px;
   color: #4338ca;
   border-radius: 5px;
+  padding: 1em;
+}
+
+.formControl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  margin: 0.5em 0;
+}
+
+input,
+textarea {
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  resize: vertical;
+  width: 150px;
+}
+
+button {
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  background-color: #4338ca;
+  color: white;
+  cursor: pointer;
 }
