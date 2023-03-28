@@ -1,6 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+import http from "../../services/httpServices";
 import "./newComment.css";
+
 const NewComment = ({ setComments }) => {
   const [comment, setComment] = useState(null);
 
@@ -14,8 +15,8 @@ const NewComment = ({ setComments }) => {
 
   const postCommentHandler = async () => {
     try {
-      await axios.post("http://localhost:3001/comments", comment);
-      const { data } = await axios.get("http://localhost:3001/comments");
+      await http.post("/comments", comment);
+      const { data } = await http.get("/comments");
       setComments(data);
     } catch (err) {
       console.log(err);
