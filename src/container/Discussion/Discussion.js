@@ -14,7 +14,7 @@ const Discussion = () => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/comments123");
+        const { data } = await axios.get("http://localhost:3001/comments");
         setComments(data);
       } catch (error) {
         setError(true);
@@ -54,7 +54,7 @@ const Discussion = () => {
     <>
       <section>{renderComments()}</section>
       <section>
-        <FullComment commentId={selectedId} />
+        <FullComment commentId={selectedId} setComments={setComments} />
       </section>
       <section>
         <NewComment setComments={setComments} />
