@@ -15,7 +15,7 @@ const NewComment = ({ setComments }) => {
   const postCommentHandler = async () => {
     try {
       await axios.post("http://localhost:3001/comments", comment);
-      const { data } = axios.get("http://localhost:3001/comments");
+      const { data } = await axios.get("http://localhost:3001/comments");
       setComments(data);
     } catch (err) {
       console.log(err);
