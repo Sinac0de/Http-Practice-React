@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
-axios.interceptors.request(
+axios.interceptors.request.use(
   (request) => {
     console.log(request);
     //edit request ...
@@ -14,7 +14,7 @@ axios.interceptors.request(
   }
 );
 
-axios.interceptors.response(
+axios.interceptors.response.use(
   (response) => {
     console.log(response);
     //edit response ...
