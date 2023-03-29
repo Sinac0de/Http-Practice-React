@@ -1,5 +1,6 @@
 import { useState } from "react";
-import http from "../../services/httpServices";
+import { addNewComment } from "../../services/addNewCommentService";
+import { getAllComments } from "../../services/getAllCommentsService";
 import "./newComment.css";
 
 const NewComment = ({ setComments }) => {
@@ -8,15 +9,14 @@ const NewComment = ({ setComments }) => {
   const changeHandler = (e) => {
     setComment({
       ...comment,
-      id: Date.now,
       [e.target.name]: e.target.value,
     });
   };
 
   const postCommentHandler = async () => {
     try {
-      await http.post("/comments", comment);
-      const { data } = await http.get("/comments");
+      await addNewComment({ ...comment, id: Date.now });
+      const { data } = await getAllComments();
       setComments(data);
     } catch (err) {
       console.log(err);
