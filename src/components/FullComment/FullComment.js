@@ -4,8 +4,9 @@ import { getAllComments } from "../../services/getAllCommentsService";
 import { getOneComment } from "../../services/getOneCommentService";
 import "./fullComment.css";
 
-const FullComment = ({ commentId, setComments, setSelectedId }) => {
+const FullComment = ({ setComments, setSelectedId, match }) => {
   const [comment, setComment] = useState(null);
+  const commentId = match.params.id;
 
   const deleteHandler = async () => {
     try {
