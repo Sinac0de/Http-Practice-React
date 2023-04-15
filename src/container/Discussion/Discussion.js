@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { getAllComments } from "../../services/getAllCommentsService";
 
 import "./discussion.css";
+import { Link } from "react-router-dom";
 
 const Discussion = () => {
   const [comments, setComments] = useState(null);
@@ -39,12 +40,13 @@ const Discussion = () => {
 
     if (comments && !error) {
       renderValue = comments.map((c) => (
-        <Comment
-          key={c.id}
-          name={c.name}
-          email={c.email}
-          onClick={() => handleSelectComment(c.id)}
-        />
+        <Link to={`/comments/${c.id}`} key={c.id}>
+          <Comment
+            name={c.name}
+            email={c.email}
+            onClick={() => handleSelectComment(c.id)}
+          />
+        </Link>
       ));
     }
 
